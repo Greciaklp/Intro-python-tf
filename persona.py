@@ -28,6 +28,10 @@ class Persona:
     def edad(self):
         return obtener_edad(date.today(), self._fecha_nacimiento)
 
+    def mostar_persona(self):
+        return f"Nombre:{self._nombre} - Dni: {self._dni} - Fecha_de_nacimiento: {self._fecha_nacimiento}"
+
+
     def es_mayor_de_edad(self):
         if self.edad >= 18:
             return True
@@ -36,9 +40,9 @@ class Persona:
           
 
    
+
     
-    
-    
+
    
 
         

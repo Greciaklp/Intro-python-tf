@@ -11,9 +11,12 @@ from procesar_archivo import guardar_archivo, guardar_cuentas, procesar_archivo
 app = Flask(__name__)
 
 
-@app.route("/")
+
+
+@app.route("/cuentas/")
 def home():
     pass
+
 
 
 @app.route("/subir-personas/", methods=["POST"])
@@ -21,8 +24,8 @@ def subir_personas():
     try:
         personas_csv = request.files["personas"]
         filename = guardar_archivo(personas_csv)
-        procesar_archivo(filename)
-        guardar_cuentas()
+        cuentas = procesar_archivo(filename)
+        guardar_cuentas(cuentas)
         return f"Archivo subido en {filename}"
     except KeyError:
         return "Request invalido, el archivo es obligatorio", 400

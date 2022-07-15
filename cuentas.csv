@@ -1,7 +1,8 @@
-titular,numero_de_cuenta,saldo
-<persona.Persona object at 0x0000015C8470B550>,<property object at 0x0000015C84671180>,<property object at 0x0000015C846712C0>
-<persona.Persona object at 0x0000015C8470B550>,<property object at 0x0000015C84671180>,<property object at 0x0000015C846712C0>
-<persona.Persona object at 0x0000015C8470B550>,<property object at 0x0000015C84671180>,<property object at 0x0000015C846712C0>
-<persona.Persona object at 0x0000015C8470B550>,<property object at 0x0000015C84671180>,<property object at 0x0000015C846712C0>
-<persona.Persona object at 0x0000015C8470B550>,<property object at 0x0000015C84671180>,<property object at 0x0000015C846712C0>
-<persona.Persona object at 0x0000015C8470B550>,<property object at 0x0000015C84671180>,<property object at 0x0000015C846712C0>
+titular,numero_de_cuenta,saldo,activa
+Maria de las Mercedes Iervasi,1,0,True
+Juan Manuel Perez,2,0,True
+Jose Martinez Garcia,3,0,True
+Bautista Rodriguez,4,0,True
+Simon Mendez,5,0,True
+Martin Martinez,6,0,True
+Ines Monti,7,0,True

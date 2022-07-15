@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 from datetime import date
 
-from modelos import Cuenta
+from modelos import Cuenta, CuentaJoven
 from persona import Persona
 from utils import obtener_edad, str_to_date
 
@@ -19,33 +19,39 @@ def guardar_archivo(archivo)-> str:
     return ruta_archivo
 
 
-cuentas = []
+
 def procesar_archivo(archivo: str):
+    cuentas = []
     with open(archivo, mode="r") as file:
         archivo_csv = csv.reader(file)
         next(archivo_csv)
+        nro_de_cuenta = 1
         for nombre, dni, fecha_nacimiento in archivo_csv:
             persona = Persona(nombre, dni, fecha_nacimiento)
-            if persona.es_mayor_de_edad() == False:
+            if not persona.es_mayor_de_edad():
                 print("Hubo un Error: la persona es menor de edad")
             else:
-                nro_cuenta = 1000123
-                for nombre, dni, fecha_nacimiento in archivo_csv:
-                    cuenta = Cuenta(persona, nro_cuenta, saldo=0)
-                    cuenta = {
-                        "titular": persona,
-                        "numero_de_cuenta": Cuenta.nro_de_cuenta,
-                        "saldo" : Cuenta.saldo,
-                    }
-                    nro_cuenta += 1
-                    
+                if 18 <= persona.edad< 30:
+                    cuenta = CuentaJoven(persona, nro_de_cuenta, 50, saldo=0)
+                    nro_de_cuenta += 1
+                    cuentas.append(cuenta)
+                else:
+                    cuenta = Cuenta(persona, nro_de_cuenta, saldo=0, activa=True)
+                    nro_de_cuenta += 1
                     cuentas.append(cuenta)
     return cuentas
 
 
-def guardar_cuentas():
+def transformar_cuentas_a_dict(cuentas):
+    cuentas_as_dict= []
+    for cuenta in cuentas:
+        cuentas_as_dict.append(cuenta.to_dict())
+    return cuentas_as_dict
+
+def guardar_cuentas(cuentas):
+    cuentas = transformar_cuentas_a_dict(cuentas)
     with open ("cuentas.csv", "w") as csvfile:
-        fieldnames = ["titular", "numero_de_cuenta", "saldo"]
+        fieldnames = ["titular", "numero_de_cuenta", "saldo", "activa"]
         cuentas_csv = csv.DictWriter(csvfile, fieldnames=fieldnames)
         cuentas_csv.writeheader()
         cuentas_csv.writerows(cuentas)
